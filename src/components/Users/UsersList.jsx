@@ -2,7 +2,6 @@ import React from 'react'
 import { UsersItem } from './UsersItem'
 
 export const UsersList = ({users}) => {
-  users.localeCompare((a, b) => a > b)
   return (
   <ul>
     {users.map((user) => (
