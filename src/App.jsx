@@ -1,14 +1,19 @@
 import React from "react"
-import { Link } from "./components/Link"
+import { Link } from "./components/Link/Link"
 import usersJson from './assets/users.json'
 import { UsersList } from "./components/Users/UsersList"
+import { Button } from "./components/Button/Button"
 
 export const App = () => {
   return (
     <>
-      <Link href='/home' title='title'>My link App</Link>
+      <Link title="title" isOnline >My link App
+      <p>asdfsdf</p></Link>
       <br />
-      <Link href='/products' title='title'>My link App2</Link>
+      <Link href='/contacts' title='title'>My link App2</Link>
+      <Button primary>Primary</Button>
+      <Button secondary>Secondary</Button>
+      <Button success>Success</Button>
       <UsersList users={usersJson} />
     </>
   )

@@ -1,33 +1,40 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import { BsFillAlarmFill } from "react-icons/bs";
 
-// {
-//   "id": 1,
-//   "name": "Leanne Graham",
-//   "username": "Bret",
-//   "email": "Sincere@april.biz",
-//   "address": {
-//     "street": "Kulas Light",
-//     "suite": "Apt. 556",
-//     "city": "Gwenborough",
-//     "zipcode": "92998-3874"
-//   },
-//   "phone": "1-770-736-8031 x56442",
-//   "website": "hildegard.org",
-//   "company": {
-//     "name": "Romaguera-Crona",
-//     "catchPhrase": "Multi-layered client-server neural-net",
-//     "bs": "harness real-time e-markets"
-//   }
-// },
+const Item = styled.li`
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: ${(props) => props.online ? 'green' : '#eee'};
+`
 
-export const UsersItem = ({name, email, phone}) => {
+const Text = styled.p`
+  color: blue;
+`
+
+const Email = styled(Text)`
+  text-decoration: underline;
+`
+
+const Icon = styled(BsFillAlarmFill)`
+  color: pink;
+`
+
+export const UsersItem = ({name, email, phone, isOnline}) => {
+  // const isOnline = false
   return (
-    <li>
-      <hr />
-      <p>{name}</p>
-      <p>{email}</p>
-      <p>{phone}</p>
-      <hr />
-    </li>
+    <Item online={isOnline} >
+      <Icon />
+      <Text>{name}</Text>
+      <Email>{email}</Email>
+      <Text>{phone}</Text>
+    </Item>
   )
+}
+
+UsersItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired
 }

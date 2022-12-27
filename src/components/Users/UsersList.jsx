@@ -1,5 +1,6 @@
 import React from 'react'
 import { UsersItem } from './UsersItem'
+import PropTypes from 'prop-types'
 
 export const UsersList = ({users}) => {
   return (
@@ -9,4 +10,13 @@ export const UsersList = ({users}) => {
     ))}
   </ul>
   )
+}
+
+UsersList.propTypes = {
+  users: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired
+  })).isRequired
 }

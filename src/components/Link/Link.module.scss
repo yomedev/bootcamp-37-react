@@ -1,0 +1,13 @@
+@value color: red;
+
+.link {
+  color: color;
+  display: block;
+  &:hover {
+    color: blue;
+  }
+}
+
+.btn {
+  background-color: blue;
+}
