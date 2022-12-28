@@ -1,22 +1,16 @@
-import React from 'react'
-import { UsersItem } from './UsersItem'
-import PropTypes from 'prop-types'
+import usersJson from '../../assets/users.json';
+// import { UsersFilters } from '../UsersFilters';
 
-export const UsersList = ({users}) => {
+import { UsersItem } from './UsersItem';
+
+export const UsersList = () => {
   return (
-  <ul>
-    {users.map((user) => (
-        <UsersItem key={user.id} name={user.name} email={user.email} phone={user.phone} />
-    ))}
-  </ul>
-  )
-}
+    <div className="mb-5">
+      {/* <UsersFilters /> */}
 
-UsersList.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired
-  })).isRequired
-}
+      {usersJson.map(user => (
+        <UsersItem key={user.id} user={user} />
+      ))}
+    </div>
+  );
+};

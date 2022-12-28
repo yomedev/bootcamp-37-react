@@ -1,40 +1,44 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { BsFillAlarmFill } from "react-icons/bs";
+import { PropTypes } from 'prop-types';
 
-const Item = styled.li`
-  padding: 10px 20px;
-  margin: 10px;
-  background-color: ${(props) => props.online ? 'green' : '#eee'};
-`
+export const UsersItem = ({ user }) => {
+  const { name, email, bio, skills, isOpenToWork } = user;
 
-const Text = styled.p`
-  color: blue;
-`
-
-const Email = styled(Text)`
-  text-decoration: underline;
-`
-
-const Icon = styled(BsFillAlarmFill)`
-  color: pink;
-`
-
-export const UsersItem = ({name, email, phone, isOnline}) => {
-  // const isOnline = false
   return (
-    <Item online={isOnline} >
-      <Icon />
-      <Text>{name}</Text>
-      <Email>{email}</Email>
-      <Text>{phone}</Text>
-    </Item>
-  )
-}
+    <div className="card my-3">
+      <div className="card-body">
+        <h5 className="card-title d-flex">
+          {name}
+          {isOpenToWork && <p className="badge bg-success ms-3">Open to work</p>}
+        </h5>
+
+        <h6 className="card-subtitle mb-2 text-muted">{email}</h6>
+        <p className="card-text">{bio}</p>
+
+        <div className="d-flex mb-2">
+          {skills.map(skill => (
+            <span key={skill} className="badge bg-dark me-1">
+              {skill}
+            </span>
+          ))}
+        </div>
+
+        <div className="d-flex">
+          <button type="button" className="card-link btn-link">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 UsersItem.propTypes = {
-  name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired
-}
+  user: PropTypes.exact({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    bio: PropTypes.string.isRequired,
+    skills: PropTypes.arrayOf(PropTypes.string.isRequired),
+    isOpenToWork: PropTypes.bool.isRequired,
+  }).isRequired,
+};
