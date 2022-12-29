@@ -1,12 +1,12 @@
-export const AvailabilityFilters = () => {
+export const AvailabilityFilters = ({ onChangeAvailability, checked}) => {
   return (
-    <fieldset className="my-4">
+    <fieldset className="me-5">
       <legend>Availability:</legend>
 
       <div className="form-check">
         <label className="form-check-label">
           <span>Open to work</span>
-          <input className="form-check-input" type="checkbox" />
+          <input checked={checked} className="form-check-input" type="checkbox" onChange={onChangeAvailability} />
         </label>
       </div>
     </fieldset>
