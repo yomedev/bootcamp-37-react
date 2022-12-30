@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {App} from './App'
-import './index.scss'
-
+import { App } from './App';
+import './index.scss';
 
 // const paragraph = createElement('p', null, 'My link')
 
@@ -12,12 +11,9 @@ import './index.scss'
 //   // children: 'My link'
 // }, children)
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <App />
-  </React.StrictMode>
+  // </React.StrictMode>,
 );
-
-
