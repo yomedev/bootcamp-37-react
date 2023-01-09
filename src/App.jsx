@@ -1,16 +1,13 @@
+import React from 'react';
 import { ConfettiContainer } from './components/Confetti/Confetti';
 import { Header, Layout } from './components/Layout';
-import { Users } from './components/Users';
-// import { Timer } from './components/Timer';
-import {Rerender} from './components/Rerender'
+import { Posts } from './components/Posts';
 
 export const App = () => {
   return (
     <Layout>
       <Header title='Hello world!' />
-      {/* <Timer /> */}
-      {/* <Rerender /> */}
-      <Users />
+      <Posts />
 
       <ConfettiContainer />
     </Layout>

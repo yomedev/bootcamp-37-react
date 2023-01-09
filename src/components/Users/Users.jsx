@@ -33,8 +33,8 @@ export class Users extends Component {
   }
 
   getSnapshotBeforeUpdate() {
-    const windowHeight = window.innerHeight
-    return windowHeight
+    const windowHeight = window.innerHeight;
+    return windowHeight;
   }
 
   componentDidUpdate(_, prevState, snapshot) {
