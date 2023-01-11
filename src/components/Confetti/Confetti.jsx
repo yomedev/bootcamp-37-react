@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ConfettiComponent from 'react-confetti';
 import ReactDOM from 'react-dom';
 

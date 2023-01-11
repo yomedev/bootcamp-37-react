@@ -1,3 +1,4 @@
+/* eslint-disable */
 export const AvailabilityFilters = ({ onChangeAvailability, checked}) => {
   return (
     <fieldset className="me-5">

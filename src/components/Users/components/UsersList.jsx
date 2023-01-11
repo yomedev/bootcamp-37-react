@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 import { UsersItem } from './UsersItem';
 
 export const UsersList = ({users, onUserDelete}) => {

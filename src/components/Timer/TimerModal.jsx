@@ -15,13 +15,14 @@ export const TimerModal = () => {
   const intervalRef = useRef(null);
 
   useEffect(() => {
+    // return handleStopInterval
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
       }
     };
-  }, []);
+  }, [handleStopInterval]); // {} === {} => false
 
   const handleStartInterval = () => {
     if (!intervalRef.current) {

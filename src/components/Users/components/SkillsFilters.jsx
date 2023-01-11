@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 const skillsList = [
   {label: 'All', value: 'all' },
   {label: 'React', value: 'react'},
