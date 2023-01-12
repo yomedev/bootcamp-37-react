@@ -8,7 +8,7 @@ const postsApi = axios.create({
 
 export const getPostsService = async (params) => {
   const { data } = await postsApi.get('/posts', {
-    params: { ...params, limit: 6,  },
+    params: { ...params, limit: 6 },
   });
   return data;
 };

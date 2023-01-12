@@ -37,7 +37,7 @@ export const PostsItem = ({ post }) => {
         <div className='card-body'>
           <h5 className='card-title'>{post.title}</h5>
 
-          <p className='card-text'>{cutString(post.content, 60)}</p>
+          <p className='card-text'>{cutString(post.content, 55)}</p>
 
           <ul className='list-group list-group-flush mb-4'>
             <li className='list-group-item'>Views: {post.views}</li>

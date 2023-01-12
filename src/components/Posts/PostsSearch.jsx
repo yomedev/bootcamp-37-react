@@ -5,7 +5,7 @@ import { Button } from '../Button';
 
 export class PostsSearch extends Component {
   state = {
-    search: '',
+    search: this.props.value,
   };
 
   handleChange = (event) => {
