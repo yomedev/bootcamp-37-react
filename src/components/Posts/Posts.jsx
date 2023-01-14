@@ -4,11 +4,11 @@ import { getPostsService } from '../../services/posts.service';
 
 import { Status } from '../../constants/fetch-status';
 
-import { PostsItem } from './PostsItem';
-import { PostsLoader } from './PostsLoader';
+import { PostsItem } from './PostsItem/PostsItem';
+import { PostsLoader } from './PostsLoader/PostsLoader';
 import { NotFound } from '../NotFound';
 import { Button } from '../Button';
-import { PostsSearch } from './PostsSearch';
+import { PostsSearch } from './PostsSearch/PostsSearch';
 import { useFetch } from '../../hooks/useFetch';
 
 export const Posts = () => {

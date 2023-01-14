@@ -1,47 +1,40 @@
 import React from 'react';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import { Layout } from './components/Layout';
-import { Posts } from './components/Posts';
-import { AuthProvider } from './context/AuthContext';
-import { Rerender } from './components/Rerender/Rerender';
-import { ReactQueryPosts } from './components/Posts/ReactQueryPosts';
-import { AbortRequest } from './components/AbortRequest/AbortRequest';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-
-const queryClient = new QueryClient();
+import HomePage from './pages/HomePage';
+import NewPostPage from './pages/NewPostPage';
+import ExercisesPage from './pages/ExercisesPage';
+import PostsListPage from './pages/PostsListPage';
+import SinglePostPage from './pages/SinglePostPage';
+import CommentsPage from './pages/SinglePostPage/CommentsPage';
+import TimerPage from './pages/ExercisesPage/TimerPage';
+import CancelRequest from './pages/ExercisesPage/CancelRequest';
+import CounterPage from './pages/ExercisesPage/CounterPage';
+import RerenderPage from './pages/ExercisesPage/RerenderPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 export const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <Layout>
-          <Tabs>
-            <TabList>
-              <Tab>React Query Posts</Tab>
-              <Tab>Posts</Tab>
-              <Tab>Abort Request</Tab>
-              <Tab>Rerender</Tab>
-            </TabList>
-
-            <TabPanel>
-              <ReactQueryPosts />
-            </TabPanel>
-            <TabPanel>
-              <Posts />
-            </TabPanel>
-            <TabPanel>
-              <AbortRequest />
-            </TabPanel>
-            <TabPanel>
-              <Rerender />
-            </TabPanel>
-          </Tabs>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </Layout>
-      </AuthProvider>
-    </QueryClientProvider>
+    <BrowserRouter basename='/bootcamp-react/'>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path='posts' element={<PostsListPage />} />
+          <Route path='posts/:postId' element={<SinglePostPage />}>
+            <Route path='comments' element={<CommentsPage />} />
+          </Route>
+          <Route path='new-post' element={<NewPostPage />} />
+          <Route path='exercises' element={<ExercisesPage />}>
+            <Route index element={<Navigate to='timer' />} />
+            <Route path='timer' element={<TimerPage />} />
+            <Route path='cancel-request' element={<CancelRequest />} />
+            <Route path='counter' element={<CounterPage />} />
+            <Route path='re-render' element={<RerenderPage />} />
+          </Route>
+        </Route>
+        <Route path='*' element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 };

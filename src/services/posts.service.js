@@ -1,27 +1,22 @@
 import axios from 'axios';
-
-// axios.defaults.baseURL = 'http://70.34.201.18:8080';
-
 const postsApi = axios.create({
   baseURL: 'http://70.34.201.18:8080',
 });
-
 export const getPostsService = async (params) => {
-  const { data } = await postsApi.get('/posts', {
-    params: { ...params, limit: 6 },
-  });
+  const { data } = await postsApi.get('/posts', { params: { ...params, limit: 6 } });
   return data;
 };
 
-// params = {
-//   page: 1,
-//   limit: 10,
-//   search: 'javascript'
-// }
+export const createNewPostService = async (body) => {
+  const { data } = await postsApi.post('/posts', body);
+  return data;
+};
 
-// axios.defaults.baseURL = 'http://anotherUrl'
+export const getSinglePostService = async (id, params) => {
+  const { data } = await postsApi.get(`/posts/${id}`, { params });
+  return data;
+};
 
-// export const getPostsContacts = async () => {
-//   const { data } = await axios.get('/contacts');
-//   return data
-// };
+export const deletePostService = (id) => {
+  return postsApi.delete(`/posts/${id}`);
+};
