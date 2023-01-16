@@ -1,4 +1,5 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Suspense } from 'react';
+import { NavLink, Outlet } from 'react-router-dom';
 
 const subPages = [
   { href: '/exercises/timer', title: 'Timer' },
@@ -19,7 +20,9 @@ export const ExercisesPage = () => {
           </li>
         ))}
       </ul>
-      <Outlet />
+      <Suspense fallback={null}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

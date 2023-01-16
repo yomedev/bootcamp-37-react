@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { Button } from '../../components/Button';
 import { PostsItem, PostsLoader, PostsSearch } from '../../components/Posts';
@@ -9,14 +9,17 @@ import { getPostsService } from '../../services/posts.service';
 export const PostsListPage = () => {
   const [posts, setPosts] = useState(null);
 
-  const [searchParams] = useSearchParams()
-  const search = searchParams.get('search')
-  console.log(search);
+  const location = useLocation()
+  console.log(location);
 
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const queryParams = Object.fromEntries(searchParams);
+  const search = searchParams.get('search');
+  const page = searchParams.get('page');
+
+  // const [page, setPage] = useState(1);
 
   const [status, setStatus] = useState(Status.Idle);
-  // const [search, setSearch] = useState('');
 
   useEffect(() => {
     setStatus(Status.Loading);
@@ -58,7 +61,7 @@ export const PostsListPage = () => {
             <Button
               key={index}
               disabled={index + 1 === posts.page}
-              onClick={() => setPage(index + 1)}
+              onClick={() => setSearchParams({ ...queryParams, page: index + 1 })}
             >
               {index + 1}
             </Button>
