@@ -5,6 +5,7 @@ const subPages = [
   { href: '/exercises/timer', title: 'Timer' },
   { href: '/exercises/cancel-request', title: 'Cancel Request' },
   { href: '/exercises/counter', title: 'Counter' },
+  { href: '/exercises/users', title: 'Users' },
   { href: '/exercises/re-render', title: 'Re-render' },
 ];
 

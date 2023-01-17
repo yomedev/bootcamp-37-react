@@ -17,7 +17,6 @@ export const Modal = ({ children, onModalClose }) => {
     window.addEventListener('keydown', handleKeyClose);
 
     return () => {
-      console.log('remove');
       window.removeEventListener('keydown', handleKeyClose)
     }
   }, [onModalClose]);

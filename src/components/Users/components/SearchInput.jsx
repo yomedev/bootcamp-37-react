@@ -8,6 +8,7 @@ export const SearchInput = ({ onSubmitSearch }) => {
   };
   const handleResetSearch = () => {
     setSearch('');
+    onSubmitSearch('')
   };
 
   return (

@@ -13,6 +13,7 @@ import CancelRequest from './pages/ExercisesPage/CancelRequest';
 import CounterPage from './pages/ExercisesPage/CounterPage';
 import RerenderPage from './pages/ExercisesPage/RerenderPage';
 import NotFoundPage from './pages/NotFoundPage';
+import { Users } from './components/Users/Users';
 
 
 // const HomePage = lazy(() =>
@@ -38,6 +39,7 @@ export const App = () => {
             <Route path='timer' element={<TimerPage />} />
             <Route path='cancel-request' element={<CancelRequest />} />
             <Route path='counter' element={<CounterPage />} />
+            <Route path='users' element={<Users />} />
             <Route path='re-render' element={<RerenderPage />} />
           </Route>
         </Route>
