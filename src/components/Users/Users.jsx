@@ -1,9 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import { FiPlus } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
-import { createNewUserAction, deleteUserAction, toggleNewUserModalAction } from '../../redux/users/actions.users';
-
+// import { createUserAction } from '../../redux/users/actions.users';
+import {
+  toggleModalAction,
+  deleteUserAction,
+  createUserAction,
+  changeSearchAction,
+} from '../../redux/users/reducer.users';
 
 import { Modal } from '../Modal/Modal';
 
@@ -15,20 +20,18 @@ import { UsersList } from './components/UsersList';
 
 const ALL_SKILLS_VALUE = 'all';
 
-const USERS_LS_KEY = 'users';
-
 // const getLocalUsers = () => JSON.parse(localStorage.getItem(USERS_LS_KEY));
-
 
 export const Users = () => {
   // const [users, setUsers] = useState(() => getLocalUsers() ?? usersJson);
 
-  const { data: users, isModalOpen } = useSelector(state => state.users);
+  const { data: users, isModalOpen, filters } = useSelector((state) => state.users);
+  const { isAvailable, skills, search } = filters;
 
   const dispatch = useDispatch();
-  
+
   const toggleModal = () => {
-    dispatch(toggleNewUserModalAction())
+    dispatch(toggleModalAction());
   };
 
   const handleDeleteUser = (userId) => {
@@ -37,38 +40,17 @@ export const Users = () => {
   };
 
   const handleCreateNewUser = (user) => {
-    console.log(user);
-    dispatch(createNewUserAction(user));
-    toggleModal()
-  };
-  
-  const [isAvailable, setIsAvailable] = useState(false);
-  const handleChangeAvailability = () => {
-    setIsAvailable((prev) => !prev);
+    dispatch(createUserAction(user));
   };
 
-  const [skills, setSkills] = useState(ALL_SKILLS_VALUE);
-  const handleChangeSkills = (event) => {
-    const { value } = event.target;
-    setSkills(value);
+  const handlesearch = (search) => {
+    dispatch(changeSearchAction(search));
   };
-
-  const [sumbitSearch, setSumbitSearch] = useState('');
-  const handleSumbitSearch = (search) => {
-    setSumbitSearch(search);
-  };
-
-  useEffect(() => {
-    localStorage.setItem(USERS_LS_KEY, JSON.stringify(users));
-  }, [users.length]);
-
 
   const filteredUsers = useMemo(() => {
     let newUsers = users;
-    if (sumbitSearch) {
-      newUsers = newUsers.filter((user) =>
-        user.name.toLowerCase().includes(sumbitSearch.toLowerCase()),
-      );
+    if (search) {
+      newUsers = newUsers.filter((user) => user.name.toLowerCase().includes(search.toLowerCase()));
     }
 
     if (isAvailable) {
@@ -80,21 +62,21 @@ export const Users = () => {
     }
 
     return newUsers;
-  }, [sumbitSearch, isAvailable, skills, users]);
+  }, [search, isAvailable, skills, users]);
 
   return (
     <>
       <div className='d-flex align-items-center mb-5'>
-        <AvailabilityFilters value={isAvailable} onChangeAvailability={handleChangeAvailability} />
+        <AvailabilityFilters />
 
-        <SkillsFilters value={skills} onChangeSkills={handleChangeSkills} />
+        <SkillsFilters />
 
         <button type='button' className='btn btn-primary btn-lg ms-auto' onClick={toggleModal}>
           <FiPlus />
         </button>
       </div>
 
-      <SearchInput onSubmitSearch={handleSumbitSearch} />
+      <SearchInput onSubmitSearch={handlesearch} />
 
       {isModalOpen && (
         <Modal onModalClose={toggleModal}>

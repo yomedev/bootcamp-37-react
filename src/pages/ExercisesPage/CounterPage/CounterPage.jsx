@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { minusAction, plusAction } from '../../../redux/counter/action.counter';
 
 export const CounterPage = () => {
   const counter = useSelector((state) => state.counter);
@@ -15,7 +16,7 @@ export const CounterPage = () => {
           type='button'
           name='android'
           className='btn p-3 btn-outline-light w-25 mx-2'
-          onClick={() => dispatch({ type: 'minus' })}
+          onClick={() => dispatch(minusAction(1))}
         >
           -1
         </button>
@@ -23,7 +24,7 @@ export const CounterPage = () => {
           type='button'
           name='iphone'
           className='btn p-3 btn-outline-light w-25 mx-2'
-          onClick={() => dispatch({ type: 'plus' })}
+          onClick={() => dispatch(plusAction(1))}
         >
           +1
         </button>
