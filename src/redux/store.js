@@ -13,6 +13,11 @@ import { rootReducer } from './reducer';
 // import { createStore } from 'redux';
 // import { composeWithDevTools } from 'redux-devtools-extension';
 
+// const myMiddleware = store => next => action => {
+//   console.log(action);
+//   return next(action)
+// }
+
 export const store = configureStore({
   reducer: rootReducer,
   // eslint-disable-next-line no-undef
@@ -23,6 +28,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
+    // }).concat(myMiddleware),
 })
 
 export const persistor = persistStore(store)

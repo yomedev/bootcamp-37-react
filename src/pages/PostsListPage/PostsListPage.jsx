@@ -1,35 +1,28 @@
-import { useEffect, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 
 import { Button } from '../../components/Button';
 import { PostsItem, PostsLoader, PostsSearch } from '../../components/Posts';
 import { Status } from '../../constants/fetch-status';
-import { getPostsService } from '../../services/posts.service';
+import { getPostsThunk } from '../../redux/posts/thunk.posts';
 
 export const PostsListPage = () => {
-  const [posts, setPosts] = useState(null);
-
-  const location = useLocation()
-  console.log(location);
+  const { posts, status } = useSelector((state) => state.posts);
+  const dispatch = useDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const queryParams = Object.fromEntries(searchParams);
   const search = searchParams.get('search');
   const page = searchParams.get('page');
 
-  // const [page, setPage] = useState(1);
-
-  const [status, setStatus] = useState(Status.Idle);
-
   useEffect(() => {
-    setStatus(Status.Loading);
-    getPostsService({ search, page })
-      .then((data) => {
-        setStatus(Status.Success);
-        setPosts(data);
-      })
-      .catch(() => setStatus(Status.Error));
-  }, [search, page]);
+    if (page > posts.total_pages) {
+      setSearchParams({ ...queryParams, page: 1})
+      return 
+    } 
+    dispatch(getPostsThunk({ page, search }));
+  }, [search, page, dispatch]);
 
   if (status === Status.Loading || status === Status.Idle) {
     return <PostsLoader />;
