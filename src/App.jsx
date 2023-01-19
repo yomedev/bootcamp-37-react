@@ -14,6 +14,7 @@ import CounterPage from './pages/ExercisesPage/CounterPage';
 import RerenderPage from './pages/ExercisesPage/RerenderPage';
 import NotFoundPage from './pages/NotFoundPage';
 import { Users } from './components/Users/Users';
+import { MiddlewarePage } from './pages/ExercisesPage/MiddlewarePage/MiddlewarePage';
 
 
 // const HomePage = lazy(() =>
@@ -41,6 +42,7 @@ export const App = () => {
             <Route path='counter' element={<CounterPage />} />
             <Route path='users' element={<Users />} />
             <Route path='re-render' element={<RerenderPage />} />
+            <Route path='middleware' element={<MiddlewarePage />} />
           </Route>
         </Route>
         <Route path='*' element={<NotFoundPage />} />
