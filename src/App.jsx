@@ -14,21 +14,38 @@ import CounterPage from './pages/ExercisesPage/CounterPage';
 import RerenderPage from './pages/ExercisesPage/RerenderPage';
 import NotFoundPage from './pages/NotFoundPage';
 import { Users } from './components/Users/Users';
-
+import LoginPage from './pages/LoginPage';
+import JoinPage from './pages/JoinPage';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProfileThunk } from './redux/profile/thunk.profile';
+import { selectAuth } from './redux/auth/selector.auth';
+import { Status } from './constants/fetch-status';
 
 // const HomePage = lazy(() =>
 //   import('./pages/HomePage').then((module) => ({ default: module.HomePage })),
 // );
-const HomePage = lazy(() => import('./pages/HomePage'))
+const HomePage = lazy(() => import('./pages/HomePage'));
 const PostListPage = lazy(() => import('./pages/PostsListPage'));
 const TimerPage = lazy(() => import('./pages/ExercisesPage/TimerPage'));
 
 export const App = () => {
+  const { status } = useSelector(selectAuth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (status === Status.Success) {
+      dispatch(getProfileThunk());
+    }
+  }, [dispatch, status]);
+
   return (
     <BrowserRouter basename='/bootcamp-react/'>
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />
+          <Route path='login' element={<LoginPage />} />
+          <Route path='join' element={<JoinPage />} />
           <Route path='posts' element={<PostListPage />} />
           <Route path='posts/:postId' element={<SinglePostPage />}>
             <Route path='comments' element={<CommentsPage />} />

@@ -27,6 +27,13 @@ export const Nav = () => {
           Posts list
         </NavLink>
         <NavLink
+          to='/rtk-posts'
+          style={{ textAlign: 'left', marginLeft: '-10px' }}
+          className={({ isActive }) => (isActive ? 'btn btn-primary' : 'btn btn-light')}
+        >
+          Rtk Posts list
+        </NavLink>
+        <NavLink
           to='/new-post'
           style={{ textAlign: 'left', marginLeft: '-10px' }}
           className={({ isActive }) => (isActive ? 'btn btn-primary' : 'btn btn-light')}

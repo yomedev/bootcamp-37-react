@@ -1,14 +1,24 @@
 /* eslint-disable */
 import { useState } from "react";
-export const SearchInput = ({ onSubmitSearch }) => {
+import { useDispatch } from "react-redux";
+import { changeSearchAction } from "../../../redux/users/slice.users";
+export const SearchInput = () => {
   const [search, setSearch] = useState('');
+
+  const dispatch = useDispatch()
+
   const handleChangeSearch = (event) => {
     const { value } = event.target;
     setSearch(value);
   };
+
+  const handleSubmitSearch = () => {
+    dispatch(changeSearchAction(search));
+  };
+
   const handleResetSearch = () => {
     setSearch('');
-    onSubmitSearch('')
+    dispatch(changeSearchAction(''));
   };
 
   return (
@@ -20,7 +30,7 @@ export const SearchInput = ({ onSubmitSearch }) => {
         className='form-control'
         placeholder='Type to search ...'
       />
-      <button className='btn btn-outline-primary' type='button' onClick={() => onSubmitSearch(search)}>
+      <button className='btn btn-outline-primary' type='button' onClick={handleSubmitSearch}>
         Search
       </button>
       <button className='btn btn-outline-secondary' type='button' onClick={handleResetSearch}>

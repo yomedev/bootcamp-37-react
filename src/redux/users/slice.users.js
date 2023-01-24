@@ -19,22 +19,10 @@ const usersSlice = createSlice({
     toggleModalAction: (state) => {
       state.isModalOpen = !state.isModalOpen;
     },
-    changeIsAvailableAction: (state) => {
-      state.filters.isAvailable = !state.filters.isAvailable;
-    },
-    changeSkillsAction: (state, action) => {
-      state.filters.skills = action.payload;
-    },
     changeSearchAction: (state, action) => {
-      state.filters.search = action.payload;
+      state.search = action.payload;
     },
   },
-  // extraReducers: {
-  //   [createUserAction]: (state, action) => {
-  //     state.data.unshift(action.payload)
-  //     state.isModalOpen = !state.isModalOpen
-  //   }
-  // }
 });
 
 export const usersReducer = usersSlice.reducer;
@@ -42,8 +30,6 @@ export const {
   deleteUserAction,
   toggleModalAction,
   createUserAction,
-  changeIsAvailableAction,
-  changeSkillsAction,
   changeSearchAction,
 } = usersSlice.actions;
 

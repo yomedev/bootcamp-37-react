@@ -9,6 +9,7 @@ import {
   REGISTER,
 } from 'redux-persist'
 import { rootReducer } from './reducer';
+import { postsApi } from './rtk-posts/api.rtk-posts';
 
 // import { createStore } from 'redux';
 // import { composeWithDevTools } from 'redux-devtools-extension';
@@ -27,7 +28,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(postsApi.middleware),
     // }).concat(myMiddleware),
 })
 

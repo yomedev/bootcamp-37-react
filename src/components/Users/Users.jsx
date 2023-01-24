@@ -1,32 +1,26 @@
-import React, { useMemo } from 'react';
+import React, {useState } from 'react';
 
 import { FiPlus } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
-// import { createUserAction } from '../../redux/users/actions.users';
+import { selectFilteredUsers, selectIsModalOpen, selectOpenToWorkTotal } from '../../redux/users/selectors.users';
 import {
   toggleModalAction,
   deleteUserAction,
   createUserAction,
-  changeSearchAction,
-} from '../../redux/users/reducer.users';
+} from '../../redux/users/slice.users';
 
 import { Modal } from '../Modal/Modal';
 
-import { AvailabilityFilters } from './components/AvailabilityFilters';
 import { NewUserForm } from './components/NewUserForm';
 import { SearchInput } from './components/SearchInput';
-import { SkillsFilters } from './components/SkillsFilters';
 import { UsersList } from './components/UsersList';
 
-const ALL_SKILLS_VALUE = 'all';
-
-// const getLocalUsers = () => JSON.parse(localStorage.getItem(USERS_LS_KEY));
-
 export const Users = () => {
-  // const [users, setUsers] = useState(() => getLocalUsers() ?? usersJson);
+  const filteredUsers = useSelector(selectFilteredUsers)
+  const openToWorkTotal = useSelector(selectOpenToWorkTotal)
+  const isModalOpen = useSelector(selectIsModalOpen);
 
-  const { data: users, isModalOpen, filters } = useSelector((state) => state.users);
-  const { isAvailable, skills, search } = filters;
+  const [counter, setCounter] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -43,40 +37,19 @@ export const Users = () => {
     dispatch(createUserAction(user));
   };
 
-  const handlesearch = (search) => {
-    dispatch(changeSearchAction(search));
-  };
-
-  const filteredUsers = useMemo(() => {
-    let newUsers = users;
-    if (search) {
-      newUsers = newUsers.filter((user) => user.name.toLowerCase().includes(search.toLowerCase()));
-    }
-
-    if (isAvailable) {
-      newUsers = newUsers.filter((user) => user.isOpenToWork);
-    }
-
-    if (skills !== ALL_SKILLS_VALUE) {
-      newUsers = newUsers.filter((user) => user.skills.includes(skills));
-    }
-
-    return newUsers;
-  }, [search, isAvailable, skills, users]);
-
   return (
     <>
-      <div className='d-flex align-items-center mb-5'>
-        <AvailabilityFilters />
+      <button type='button' className='btn btn-primary btn-lg ms-auto mb-5' onClick={toggleModal}>
+        <FiPlus />
+      </button>
 
-        <SkillsFilters />
+      <button type='button' className='btn btn-primary mb-3' onClick={() => setCounter((prev) => prev + 1)}>
+        {counter}
+      </button>
 
-        <button type='button' className='btn btn-primary btn-lg ms-auto' onClick={toggleModal}>
-          <FiPlus />
-        </button>
-      </div>
+      <SearchInput />
 
-      <SearchInput onSubmitSearch={handlesearch} />
+      <p>Open to work: {openToWorkTotal}</p>
 
       {isModalOpen && (
         <Modal onModalClose={toggleModal}>

@@ -1,0 +1,1 @@
+export { RtkPostsListPage as default } from './RtkPostsListPage';

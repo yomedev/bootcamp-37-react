@@ -1,22 +1,27 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import { useDispatch } from 'react-redux';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 
 // import { useAuth } from '../../../context/AuthContext';
 import { cutString } from '../../../helpers/cut-string';
-import { deletePostThunk } from '../../../redux/posts/thunk.posts';
+import { useDeletePostMutation } from '../../../redux/rtk-posts/api.rtk-posts';
+// import { deletePostThunk } from '../../../redux/posts/thunk.posts';
 
 export const PostsItem = ({ post }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const { isAuth } = useAuth();
   const location = useLocation();
 
-  const [searchParams] = useSearchParams();
-  const search = searchParams.get('search');
-  const page = searchParams.get('page');
+  const [deletePost] = useDeletePostMutation()
+  // console.log(mutation);
+
+  // const [searchParams] = useSearchParams();
+  // const search = searchParams.get('search');
+  // const page = searchParams.get('page');
 
   const handleDeletePost = () => {
-    dispatch(deletePostThunk({ postId: post.id, params: { search, page } }));
+    deletePost(post.id)
+    // dispatch(deletePostThunk({ postId: post.id, params: { search, page } }));
   };
 
   return (

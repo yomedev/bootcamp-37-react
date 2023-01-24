@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { CommentForm } from '../../../components/CommentForm';
-import { CommentList } from '../../../components/CommentList';
+import { CommentForm } from '../../../components/Comments';
+import { CommentList } from '../../../components/Comments';
 
 export const CommentsPage = () => {
   const [comments, setComments] = useState(null);

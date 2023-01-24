@@ -1,44 +1,35 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-
 import { Button } from '../../components/Button';
 import { PostsItem, PostsLoader, PostsSearch } from '../../components/Posts';
-import { Status } from '../../constants/fetch-status';
-import { getPostsThunk } from '../../redux/posts/thunk.posts';
+import { useGetPostsQuery } from '../../redux/rtk-posts/api.rtk-posts';
 
-export const PostsListPage = () => {
-  const { posts, status } = useSelector((state) => state.posts);
-  const dispatch = useDispatch();
-
+export const RtkPostsListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const queryParams = Object.fromEntries(searchParams);
-  const search = searchParams.get('search');
-  const page = searchParams.get('page');
+  const search = searchParams.get('search') ?? '';
+  const page = searchParams.get('page') ?? 1;
 
-  useEffect(() => { 
-    dispatch(getPostsThunk({ page, search }));
-  }, [search, page, dispatch]);
+  const { data: posts, isLoading, isError } = useGetPostsQuery({ search, page });
 
-  if (status === Status.Loading || status === Status.Idle) {
+  // const [getPosts, {data: posts, isLoading, isError}] = useLazyGetPostsQuery();
+
+  if (isLoading) {
     return <PostsLoader />;
   }
 
-  if (status === Status.Error) {
+  if (isError) {
     return <p>Error</p>;
-  }
-
-  if (status === Status.Success && !posts) {
-    return <p>Not Found</p>;
   }
 
   return (
     <>
       <PostsSearch />
 
+      {/* <Button onClick={() => getPosts()}>Get posts</Button> */}
+
       <div className='container-fluid g-0 pb-5 mb-5'>
         <div className='row'>
-          {posts.data.map((post) => (
+          {posts?.data.map((post) => (
             <PostsItem key={post.id} post={post} />
           ))}
         </div>
