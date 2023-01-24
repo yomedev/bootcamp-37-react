@@ -2,11 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { token } from '../../services/tokenApi';
 import { getProfileService } from '../../services/users.service';
 import { selectAuth } from '../auth/selector.auth';
-import { logoutAction } from '../auth/slice.auth';
+// import { logoutAction } from '../auth/slice.auth';
 
 export const getProfileThunk = createAsyncThunk(
   'profile/getProfile',
-  async (_, { getState, rejectWithValue, dispatch }) => {
+  async (_, { getState, rejectWithValue }) => {
     const { access_token, token_type } = selectAuth(getState());
     try {
       if (!access_token || !token_type) {
@@ -18,7 +18,7 @@ export const getProfileThunk = createAsyncThunk(
       return data;
     } catch (error) {
       token.unset()
-      dispatch(logoutAction())
+      // dispatch(logoutAction())
       return rejectWithValue();
     }
   },

@@ -2,7 +2,7 @@ import { omit } from 'lodash-es';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { loginThunk } from '../../redux/auth/thunk.auth';
 import { createUserService } from '../../services/users.service';
@@ -21,7 +21,6 @@ export const JoinPage = () => {
   const [values, setValues] = useState(initialState);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -35,7 +34,6 @@ export const JoinPage = () => {
       await createUserService(values);
       await dispatch(loginThunk(omit(values, 'last_name', 'first_name'))).unwrap();
       toast.success('Success');
-      navigate('/', { replace: true });
     } catch (error) {
       toast.error('Something went wrong');
     }

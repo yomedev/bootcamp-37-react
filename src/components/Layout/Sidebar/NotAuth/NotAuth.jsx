@@ -1,11 +1,12 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 export const NotAuth = () => {
+  const location = useLocation();
   return (
-    <div className="d-flex flex-column justify-content-between h-100">
-      <div className="d-flex flex-column justify-content-between">
+    <div className='d-flex flex-column justify-content-between h-100'>
+      <div className='d-flex flex-column justify-content-between'>
         <NavLink
-          to="/"
+          to='/'
           end
           style={{ textAlign: 'left', marginLeft: '-10px' }}
           className={({ isActive }) => (isActive ? 'btn btn-primary mb-2' : 'btn btn-light mb-2')}
@@ -14,7 +15,7 @@ export const NotAuth = () => {
         </NavLink>
 
         <NavLink
-          to="/posts"
+          to='/posts'
           style={{ textAlign: 'left', marginLeft: '-10px' }}
           className={({ isActive }) => (isActive ? 'btn btn-primary mb-2' : 'btn btn-light mb-2')}
         >
@@ -22,7 +23,8 @@ export const NotAuth = () => {
         </NavLink>
 
         <NavLink
-          to="/login"
+          to='/login'
+          state={{ fromLogin: location, from: location.state?.from }}
           style={{ textAlign: 'left', marginLeft: '-10px' }}
           className={({ isActive }) => (isActive ? 'btn btn-primary mb-2' : 'btn btn-light mb-2')}
         >
@@ -30,7 +32,8 @@ export const NotAuth = () => {
         </NavLink>
 
         <NavLink
-          to="/join"
+          to='/join'
+          state={{ fromLogin: location, from: location.state?.from }}
           style={{ textAlign: 'left', marginLeft: '-10px' }}
           className={({ isActive }) => (isActive ? 'btn btn-primary mb-2' : 'btn btn-light mb-2')}
         >
@@ -39,4 +42,4 @@ export const NotAuth = () => {
       </div>
     </div>
   );
-}
+};

@@ -1,4 +1,5 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { useSelector } from 'react-redux';
 // import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -10,6 +11,7 @@ import { useDeletePostMutation } from '../../../redux/rtk-posts/api.rtk-posts';
 export const PostsItem = ({ post }) => {
   // const dispatch = useDispatch();
   // const { isAuth } = useAuth();
+  const profile = useSelector((state) => state.profile.data)
   const location = useLocation();
 
   const [deletePost] = useDeletePostMutation()
@@ -43,17 +45,15 @@ export const PostsItem = ({ post }) => {
               Created: {formatDistanceToNow(new Date(post.created_at))}
             </li>
           </ul>
-          {/* {isAuth && ( */}
           <div className='d-flex'>
-            <button type='button' className='btn btn-link' onClick={handleDeletePost}>
+            {post.user_id === profile?.id && <button type='button' className='btn btn-link' onClick={handleDeletePost}>
               Delete post
-            </button>
+            </button>}
 
             <Link to={`/posts/${post.id}`} state={{ from: location }} className='btn btn-link ms-3'>
               Read post
             </Link>
           </div>
-          {/* )} */}
         </div>
       </div>
     </div>

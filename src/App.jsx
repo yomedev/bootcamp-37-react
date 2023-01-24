@@ -21,6 +21,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProfileThunk } from './redux/profile/thunk.profile';
 import { selectAuth } from './redux/auth/selector.auth';
 import { Status } from './constants/fetch-status';
+import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
+import { PublicRoute } from './components/PublicRoute/PublicRoute';
 
 // const HomePage = lazy(() =>
 //   import('./pages/HomePage').then((module) => ({ default: module.HomePage })),
@@ -44,22 +46,30 @@ export const App = () => {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path='login' element={<LoginPage />} />
-          <Route path='join' element={<JoinPage />} />
+
+          <Route path='/' element={<PublicRoute />}>
+            <Route path='login' element={<LoginPage />} />
+            <Route path='join' element={<JoinPage />} />
+          </Route>
+
           <Route path='posts' element={<PostListPage />} />
           <Route path='posts/:postId' element={<SinglePostPage />}>
             <Route path='comments' element={<CommentsPage />} />
           </Route>
-          <Route path='new-post' element={<NewPostPage />} />
-          <Route path='exercises' element={<ExercisesPage />}>
-            <Route index element={<Navigate to='timer' />} />
-            <Route path='timer' element={<TimerPage />} />
-            <Route path='cancel-request' element={<CancelRequest />} />
-            <Route path='counter' element={<CounterPage />} />
-            <Route path='users' element={<Users />} />
-            <Route path='re-render' element={<RerenderPage />} />
+
+          <Route path='/' element={<PrivateRoute />}>
+            <Route path='new-post' element={<NewPostPage />} />
+            <Route path='exercises' element={<ExercisesPage />}>
+              <Route index element={<Navigate to='timer' />} />
+              <Route path='timer' element={<TimerPage />} />
+              <Route path='cancel-request' element={<CancelRequest />} />
+              <Route path='counter' element={<CounterPage />} />
+              <Route path='users' element={<Users />} />
+              <Route path='re-render' element={<RerenderPage />} />
+            </Route>
           </Route>
         </Route>
+
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
       <nav>

@@ -1,9 +1,19 @@
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { logoutAction } from '../../../../redux/auth/slice.auth';
+import { token } from '../../../../services/tokenApi';
 
 import { Button } from '../../../Button';
 import { UserCard } from '../../../UserCard/UserCard';
 
 export const UserNav = () => {
+  const dispatch = useDispatch()
+
+  const handleLogout = () => {
+    dispatch(logoutAction())
+    token.unset()
+  }
+
   return (
     <div className="d-flex flex-column justify-content-between h-100">
       <div className="d-flex flex-column justify-content-between">
@@ -43,7 +53,7 @@ export const UserNav = () => {
         </NavLink>
       </div>
 
-      <Button className="btn-danger mt-auto">
+      <Button className="btn-danger mt-auto" onClick={handleLogout}>
         Log Out
       </Button>
     </div>

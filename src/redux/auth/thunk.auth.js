@@ -9,7 +9,7 @@ export const loginThunk = createAsyncThunk('auth/login', async (body, { rejectWi
     token.set(`${data.token_type} ${data.access_token}`); // 'Bearer asjdfajsdff...'
     return data;
   } catch (error) {
-    toast.error('Invalid token');
+    toast.error('Invalid body');
     return rejectWithValue();
   }
 });
